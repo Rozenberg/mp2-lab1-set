@@ -62,12 +62,9 @@ int TSet::operator!=(const TSet &s) const // сравнение
 }
 
 TSet TSet::operator+(const TSet &s) // объединение
-{ if (MaxPower > s.MaxPower)
-{
-	TSet temp(MaxPower);
+{ TSet temp(BitField | s.BitField);
+return temp;
 }
-}
-
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {TSet temp(*this);
 temp.BitField.SetBit(Elem);
@@ -81,19 +78,37 @@ return temp;
 }
 
 TSet TSet::operator*(const TSet &s) // пересечение
-{
+{ TSet temp(BitField & s.BitField);
+return temp;
 }
 
 TSet TSet::operator~(void) // дополнение
-{
+{ TSet temp(~BitField);
+return temp;
 }
 
 // перегрузка ввода/вывода
 
 istream &operator>>(istream &istr, TSet &s) // ввод
-{
+{int temp; char ch;
+do {istr>>ch;} while (ch != '{');
+do {
+	istr >> temp; s.InsElem(temp);
+while ((ch!= ',') && (ch != '}'));
+} while (ch != '}');
+return istr;
 }
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
-{
+{int i,n; char ch = ' ';
+ostr << "{";
+n=s.GetMaxPower();
+for (i = 0; i < n; i++)
+	{if (s.IsMember(i))
+	{ ostr << ch << ' ' << i;
+ch = ',';
+}
+}
+ostr << "}";
+return ostr;
 }
