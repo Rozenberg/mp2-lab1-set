@@ -35,11 +35,13 @@ int TSet::IsMember(const int Elem) const // элемент множества?
 }
 
 void TSet::InsElem(const int Elem) // включение элемента множества
-{ BitField.SetBit(Elem);
+{
+BitField.SetBit(Elem);
 }
 
 void TSet::DelElem(const int Elem) // исключение элемента множества
-{ BitField.ClrBit(Elem);
+{
+BitField.ClrBit(Elem);
 }
 
 // теоретико-множественные операции
@@ -83,7 +85,7 @@ return temp;
 }
 
 TSet TSet::operator~(void) // дополнение
-{ TSet temp(~BitField);
+{ 	TSet temp(~BitField);
 return temp;
 }
 
